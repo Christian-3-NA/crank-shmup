@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://jgdgb7esbgpd"]
+
+[ext_resource type="Texture2D" uid="uid://dtn3upxt2i7yi" path="res://Assets/Art/icon.svg" id="1_7rgnb"]
+[ext_resource type="Script" path="res://Scripts/player.gd" id="1_exb3b"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_28vcn"]
+radius = 16.0
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_exb3b")
+metadata/_edit_group_ = true
+
+[node name="PlayerSprite" type="Sprite2D" parent="."]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("1_7rgnb")
+
+[node name="PlayerShape" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_28vcn")
+
+[node name="FireDelayTimer" type="Timer" parent="."]
+one_shot = true

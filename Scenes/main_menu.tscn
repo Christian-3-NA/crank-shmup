@@ -1,0 +1,44 @@
+[gd_scene load_steps=3 format=3 uid="uid://dkd05so18703m"]
+
+[ext_resource type="Script" path="res://Scripts/main_menu.gd" id="1_t6lgm"]
+[ext_resource type="Texture2D" uid="uid://dtn3upxt2i7yi" path="res://Assets/Art/icon.svg" id="2_l2mer"]
+
+[node name="MainMenu" type="Node2D"]
+script = ExtResource("1_t6lgm")
+
+[node name="MMBack" type="Panel" parent="."]
+offset_right = 640.0
+offset_bottom = 360.0
+
+[node name="MMV" type="VBoxContainer" parent="MMBack"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Logo" type="TextureRect" parent="MMBack/MMV"]
+layout_mode = 2
+texture = ExtResource("2_l2mer")
+
+[node name="Start" type="Button" parent="MMBack/MMV"]
+layout_mode = 2
+text = "Start"
+
+[node name="Settings" type="Button" parent="MMBack/MMV"]
+layout_mode = 2
+text = "Settings"
+
+[node name="Exit" type="Button" parent="MMBack/MMV"]
+layout_mode = 2
+text = "Exit
+"
+
+[connection signal="pressed" from="MMBack/MMV/Start" to="." method="_on_start_pressed"]

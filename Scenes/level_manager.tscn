@@ -1,0 +1,35 @@
+[gd_scene load_steps=3 format=3 uid="uid://1scw38thf746"]
+
+[ext_resource type="Script" path="res://Scripts/level_manager.gd" id="1_ecya6"]
+[ext_resource type="PackedScene" uid="uid://b5rnbgxb1vie7" path="res://Scenes/combat_manager.tscn" id="2_a7254"]
+
+[node name="GameManager" type="Node2D"]
+script = ExtResource("1_ecya6")
+
+[node name="GMBack" type="Panel" parent="."]
+offset_right = 640.0
+offset_bottom = 360.0
+
+[node name="GameBox" type="HBoxContainer" parent="GMBack"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 4
+
+[node name="HudLeft" type="VBoxContainer" parent="GMBack/GameBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CombatHolder" type="Control" parent="GMBack/GameBox"]
+custom_minimum_size = Vector2(270, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CombatManager" parent="GMBack/GameBox/CombatHolder" instance=ExtResource("2_a7254")]
+
+[node name="HudRight" type="VBoxContainer" parent="GMBack/GameBox"]
+layout_mode = 2
+size_flags_horizontal = 3
