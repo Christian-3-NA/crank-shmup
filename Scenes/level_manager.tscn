@@ -1,7 +1,17 @@
-[gd_scene load_steps=3 format=3 uid="uid://1scw38thf746"]
+[gd_scene load_steps=4 format=3 uid="uid://1scw38thf746"]
 
 [ext_resource type="Script" path="res://Scripts/level_manager.gd" id="1_ecya6"]
 [ext_resource type="PackedScene" uid="uid://b5rnbgxb1vie7" path="res://Scenes/combat_manager.tscn" id="2_a7254"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dm72m"]
+content_margin_left = 20.0
+content_margin_right = 20.0
+bg_color = Color(0.917647, 0.768627, 0.243137, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.144063, 0.144063, 0.144063, 1)
 
 [node name="GameManager" type="Node2D"]
 script = ExtResource("1_ecya6")
@@ -23,6 +33,14 @@ size_flags_vertical = 4
 layout_mode = 2
 size_flags_horizontal = 3
 
+[node name="EnergyBar" type="ProgressBar" parent="GMBack/GameBox/HudLeft"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 3
+theme_override_styles/fill = SubResource("StyleBoxFlat_dm72m")
+fill_mode = 3
+show_percentage = false
+
 [node name="CombatHolder" type="Control" parent="GMBack/GameBox"]
 custom_minimum_size = Vector2(270, 0)
 layout_mode = 2
@@ -33,3 +51,14 @@ size_flags_horizontal = 3
 [node name="HudRight" type="VBoxContainer" parent="GMBack/GameBox"]
 layout_mode = 2
 size_flags_horizontal = 3
+
+[node name="SpawnPlayer" type="Button" parent="GMBack/GameBox/HudRight"]
+layout_mode = 2
+text = "Spawn
+Player"
+
+[node name="MouseHolder" type="Button" parent="GMBack/GameBox/HudRight"]
+layout_mode = 2
+text = "press me :)"
+
+[connection signal="pressed" from="GMBack/GameBox/HudRight/SpawnPlayer" to="." method="_on_spawn_player_pressed"]
