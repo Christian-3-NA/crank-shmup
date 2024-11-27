@@ -1,6 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://bdluivj7r6grk"]
+[gd_scene load_steps=4 format=3 uid="uid://bdluivj7r6grk"]
 
 [ext_resource type="Script" path="res://Scripts/global.gd" id="1_mvifx"]
+[ext_resource type="PackedScene" uid="uid://dwycjkfeid0io" path="res://Scenes/enemy.tscn" id="2_u551k"]
+[ext_resource type="PackedScene" uid="uid://ci1ckx5gdiyyw" path="res://Scenes/InheritedScenes/aimer_enemy.tscn" id="3_ke65r"]
 
 [node name="Global" type="Node"]
 script = ExtResource("1_mvifx")
+enemy_scenes = Array[PackedScene]([ExtResource("2_u551k"), ExtResource("3_ke65r")])

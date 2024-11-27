@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://ci1ckx5gdiyyw"]
+
+[ext_resource type="PackedScene" uid="uid://dwycjkfeid0io" path="res://Scenes/enemy.tscn" id="1_yjlpu"]
+[ext_resource type="Script" path="res://Scripts/ExtendedScripts/aimer_enemy.gd" id="2_yvka7"]
+
+[node name="AimerEnemy" instance=ExtResource("1_yjlpu")]
+script = ExtResource("2_yvka7")
+
+[node name="EnemySprite" parent="." index="0"]
+modulate = Color(1, 1, 0, 1)
+
+[node name="FireDelayTimer" type="Timer" parent="." index="2"]
+one_shot = true

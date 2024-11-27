@@ -16,6 +16,3 @@ texture = ExtResource("1_mbjcn")
 [node name="Enemy Shape" type="CollisionShape2D" parent="."]
 position = Vector2(-0.5, 0)
 shape = SubResource("RectangleShape2D_bew3p")
-
-[node name="FireDelayTimer" type="Timer" parent="."]
-one_shot = true

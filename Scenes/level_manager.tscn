@@ -61,4 +61,20 @@ Player"
 layout_mode = 2
 text = "press me :)"
 
+[node name="SpawnEnemy" type="Button" parent="GMBack/GameBox/HudRight"]
+layout_mode = 2
+text = "Spawn
+Enemy"
+
+[node name="SpawnAimer" type="Button" parent="GMBack/GameBox/HudRight"]
+layout_mode = 2
+text = "Spawn
+Aimer"
+
+[node name="SpawnWave" type="Button" parent="GMBack/GameBox/HudRight"]
+layout_mode = 2
+
 [connection signal="pressed" from="GMBack/GameBox/HudRight/SpawnPlayer" to="." method="_on_spawn_player_pressed"]
+[connection signal="pressed" from="GMBack/GameBox/HudRight/SpawnPlayer" to="GMBack/GameBox/CombatHolder/CombatManager" method="_on_spawn_player_pressed"]
+[connection signal="pressed" from="GMBack/GameBox/HudRight/SpawnEnemy" to="GMBack/GameBox/CombatHolder/CombatManager" method="_on_spawn_enemy_pressed"]
+[connection signal="pressed" from="GMBack/GameBox/HudRight/SpawnAimer" to="GMBack/GameBox/CombatHolder/CombatManager" method="_on_spawn_aimer_pressed"]

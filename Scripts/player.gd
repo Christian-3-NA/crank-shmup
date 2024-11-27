@@ -15,6 +15,8 @@ var recharging_bool = false
 var bullet_scene = load("res://Scenes/bullet.tscn")
 
 
+''' ---------- DEFAULT FUNCTIONS ---------- '''
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
@@ -61,6 +63,8 @@ func _process(delta: float) -> void:
 			current_energy = max_energy
 			recharging_bool = false
 	
+
+''' ---------- CUSTOM FUNCTIONS ---------- '''
 	
 func shoot_bullet():
 	# Check Energy
