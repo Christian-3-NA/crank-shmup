@@ -28,6 +28,11 @@ window/size/window_width_override=1280
 window/size/window_height_override=720
 window/stretch/mode="viewport"
 
+[global_group]
+
+enemy=""
+player=""
+
 [input]
 
 move_right={

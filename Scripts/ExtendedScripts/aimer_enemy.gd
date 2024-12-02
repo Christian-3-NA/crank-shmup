@@ -9,6 +9,7 @@ When instantiating, give:
 
 # Enemy Stats
 var bullet_speed = 150
+var bullet_damage = 10
 var fire_delay = 2
 var shooting_position = Vector2.ZERO
 var relative_shoot_pos = Vector2.ZERO
@@ -17,6 +18,8 @@ var target = Global.current_player_GL
 # Scene Loading
 var bullet_scene = load("res://Scenes/bullet.tscn")
 
+
+''' ---------- DEFAULT FUNCTIONS ---------- '''
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -27,11 +30,20 @@ func _ready() -> void:
 	speed = 3
 	
 	# This code is run here because it can't be done in the Levels data
-	shooting_position = shooting_position + relative_shoot_pos
+	shooting_position = position + relative_shoot_pos
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	# Pauses the enemy processing before anything else happens
+	if delay_time > 0:
+		await get_tree().create_timer(delay_time).timeout
+		delay_time = 0
+	
+	# Does this first because nothing else matters if he dies
+	if health <= 0:
+		die()
+		
 	# Ease into position from spawn
 	position = position.lerp(shooting_position, delta * speed)
 	
@@ -49,4 +61,5 @@ func shoot_bullet():
 	next_bullet.velocity = self.position.direction_to(self.target.position)
 	next_bullet.position = self.position
 	next_bullet.speed = self.bullet_speed
+	next_bullet.damage = self.bullet_damage
 	get_parent().add_child(next_bullet)

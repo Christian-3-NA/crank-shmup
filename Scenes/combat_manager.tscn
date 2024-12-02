@@ -1,10 +1,21 @@
-[gd_scene load_steps=4 format=3 uid="uid://b5rnbgxb1vie7"]
+[gd_scene load_steps=5 format=3 uid="uid://b5rnbgxb1vie7"]
 
 [ext_resource type="Script" path="res://Scripts/combat_manager.gd" id="1_b46th"]
-[ext_resource type="PackedScene" uid="uid://dwycjkfeid0io" path="res://Scenes/enemy.tscn" id="3_odibq"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gk58c"]
 bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Curve2D" id="Curve2D_hl3ob"]
+_data = {
+"points": PackedVector2Array(-75, 0, 0, 0, 37, -32, -75, 0, 75, 0, 113, 75, 0, 0, 0, 0, 188, 381)
+}
+point_count = 3
+
+[sub_resource type="Curve2D" id="Curve2D_e0mba"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 233, -32, 75, 0, -75, 0, 157, 75, 0, 0, 0, 0, 82, 381)
+}
+point_count = 3
 
 [node name="CombatManager" type="Node2D"]
 script = ExtResource("1_b46th")
@@ -32,5 +43,13 @@ position = Vector2(302, 0)
 [node name="EnemySpawnR2" type="Marker2D" parent="."]
 position = Vector2(302, 128)
 
-[node name="Enemy" parent="." instance=ExtResource("3_odibq")]
-position = Vector2(138, 47)
+[node name="WaveTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="PathCubic" type="Path2D" parent="."]
+curve = SubResource("Curve2D_hl3ob")
+
+[node name="PathCubicR" type="Path2D" parent="."]
+curve = SubResource("Curve2D_e0mba")
+
+[connection signal="timeout" from="WaveTimer" to="." method="_on_wave_timer_timeout"]

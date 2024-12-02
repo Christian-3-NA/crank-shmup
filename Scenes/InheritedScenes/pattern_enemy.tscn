@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://bbk1pbi8ub6jf"]
+
+[ext_resource type="PackedScene" uid="uid://dwycjkfeid0io" path="res://Scenes/enemy.tscn" id="1_6a1n5"]
+[ext_resource type="Script" path="res://Scripts/ExtendedScripts/pattern_enemy.gd" id="2_12l4b"]
+
+[node name="PatternEnemy" instance=ExtResource("1_6a1n5")]
+modulate = Color(1, 0, 1, 1)
+script = ExtResource("2_12l4b")

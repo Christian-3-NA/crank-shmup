@@ -16,4 +16,8 @@ func _process(delta: float) -> void:
 ''' ---------- SIGNAL FUNCTIONS ---------- '''
 
 func _on_start_pressed() -> void:
-	get_tree().change_scene_to_file("poop")
+	get_tree().change_scene_to_file("res://Scenes/level_manager.tscn")
+
+
+func _on_exit_pressed() -> void:
+	get_tree().quit()

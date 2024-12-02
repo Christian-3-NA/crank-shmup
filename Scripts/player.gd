@@ -24,6 +24,10 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	# Does this first because nothing else matters if he dies
+	if health <= 0:
+		die()
+	
 	# Reloading. Does this before anything else because it changes your controls
 	if Input.is_action_just_pressed("charge"):
 		if recharging_bool == false:
@@ -62,10 +66,23 @@ func _process(delta: float) -> void:
 		if Input.is_action_just_released("shoot") and current_energy >= max_energy:
 			current_energy = max_energy
 			recharging_bool = false
-	
+
 
 ''' ---------- CUSTOM FUNCTIONS ---------- '''
 	
+func damaged(damage):
+	if current_energy == 0:
+		die()
+	else:
+		current_energy = max(0, current_energy - damage)
+
+
+func die():
+	print("DEAD")
+	health = 10
+	#queue_free()
+
+
 func shoot_bullet():
 	# Check Energy
 	if current_energy > 0:
@@ -80,10 +97,8 @@ func shoot_bullet():
 		next_bullet.position = self.position
 		get_parent().add_child(next_bullet)
 	
-		# Energy Change
-		current_energy -= 1
-		if current_energy < 0:
-			current_energy = 0
+		# Energy Change. We do max here to put it in one line
+		current_energy = max(0, current_energy - 1)
 		
 	else:
 		pass
