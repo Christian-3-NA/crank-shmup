@@ -5,6 +5,7 @@
 
 [node name="AimerEnemy" instance=ExtResource("1_yjlpu")]
 script = ExtResource("2_yvka7")
+speed = 3
 
 [node name="EnemySprite" parent="." index="0"]
 modulate = Color(1, 1, 0, 1)

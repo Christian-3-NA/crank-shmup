@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://cyw4lexqa2x76"]
+
+[ext_resource type="PackedScene" uid="uid://dwycjkfeid0io" path="res://Scenes/enemy.tscn" id="1_n5y1h"]
+[ext_resource type="Script" path="res://Scripts/ExtendedScripts/seeker_enemy.gd" id="2_i2udd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yxk6w"]
+size = Vector2(25, 24)
+
+[node name="SeekerEnemy" instance=ExtResource("1_n5y1h")]
+script = ExtResource("2_i2udd")
+health = 2
+speed = 3
+metadata/_edit_group_ = true
+
+[node name="EnemySprite" parent="." index="0"]
+modulate = Color(1, 0, 0, 1)
+flip_v = true
+
+[node name="Hurtbox" type="Area2D" parent="." index="2"]
+
+[node name="HurtboxShape" type="CollisionShape2D" parent="Hurtbox" index="0"]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_yxk6w")
+
+[connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]

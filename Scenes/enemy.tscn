@@ -13,6 +13,6 @@ script = ExtResource("1_i7q5y")
 scale = Vector2(0.188, 0.188)
 texture = ExtResource("1_mbjcn")
 
-[node name="Enemy Shape" type="CollisionShape2D" parent="."]
+[node name="EnemyShape" type="CollisionShape2D" parent="."]
 position = Vector2(-0.5, 0)
 shape = SubResource("RectangleShape2D_bew3p")

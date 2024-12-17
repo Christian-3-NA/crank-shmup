@@ -2,11 +2,19 @@ extends CharacterBody2D
 
 # Player Stats
 var health = 5
-var speed = 100
-var bullet_speed = 300
+var speed = 150
+var bullet_speed = 400
 var fire_delay = 0.1
+# Energy
 var max_energy = 30.0
 var current_energy = max_energy
+var bullet_cost = 1
+var recharge_amount = 1
+var time_to_max_ramp = 0.5
+var hit_stun_time = 0.5
+
+# Animation
+var relative_rotation = 0
 
 # State Bools
 var recharging_bool = false
@@ -23,7 +31,7 @@ func _ready() -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	# Does this first because nothing else matters if he dies
 	if health <= 0:
 		die()
@@ -31,9 +39,15 @@ func _process(delta: float) -> void:
 	# Reloading. Does this before anything else because it changes your controls
 	if Input.is_action_just_pressed("charge"):
 		if recharging_bool == false:
+			$ChargeRampTimer.start(time_to_max_ramp)
 			recharging_bool = true
+			$PlayerSprite.frame = 1
+			$ReloadingSprite.show()
 		else:
 			recharging_bool = false
+			$ReloadingSprite.hide()
+			$ReloadingSprite.rotation_degrees = 0
+			relative_rotation = 0
 	
 	# Can only shoot and move when not recharging
 	if !recharging_bool:
@@ -49,11 +63,22 @@ func _process(delta: float) -> void:
 			velocity.y -= 1
 		
 		# Diagonal Normalization
-		#if velocity.length() > 0:
-		#	velocity = velocity.normalized() * speed
+		if velocity.length() > 0:
+			velocity = velocity.normalized() * speed
 			
-		position += velocity * speed * delta # Change Pos
+		position += velocity * delta # Change Pos
 		
+		# Sprite changing
+		if velocity.x > 0:
+			$PlayerSprite.frame = 2
+		elif velocity.x < 0:
+			$PlayerSprite.frame = 0
+		else: 
+			$PlayerSprite.frame = 1
+		
+		# Position clamping to screen
+		var clamp_offset = $PlayerSprite.get_rect().size * $PlayerSprite.scale / 2 # Defining this here because i only use it below
+		position = position.clamp(Vector2.ZERO + clamp_offset, get_parent().get_node("CMBack").size - clamp_offset)
 		
 		# Shooting Code
 		if Input.is_action_pressed("shoot") and $FireDelayTimer.is_stopped():
@@ -61,16 +86,39 @@ func _process(delta: float) -> void:
 			
 	
 	elif recharging_bool:
+		# Speeeens the reloading sprite
+		$ReloadingSprite.rotation_degrees = $ReloadingSprite.rotation_degrees + (relative_rotation - $ReloadingSprite.rotation_degrees) * (delta * 2)
+		
+		# Variable charge amount depening on how long you've been in this state
+		var new_recharge_amount = recharge_amount * (1 - ($ChargeRampTimer.time_left / time_to_max_ramp))
+		new_recharge_amount = max(new_recharge_amount, 0)
 		if Input.is_action_just_pressed("shoot"):
-			current_energy += 2
-		if Input.is_action_just_released("shoot") and current_energy >= max_energy:
+			increase_energy(new_recharge_amount)
+		if Input.is_action_just_pressed("move_right"):
+			increase_energy(new_recharge_amount)
+		if Input.is_action_just_pressed("move_left"):
+			increase_energy(new_recharge_amount)
+		if Input.is_action_just_pressed("move_down"):
+			increase_energy(new_recharge_amount)
+		if Input.is_action_just_pressed("move_up"):
+			increase_energy(new_recharge_amount)
+		if current_energy >= max_energy:
 			current_energy = max_energy
 			recharging_bool = false
+			$ReloadingSprite.hide()
+			$ReloadingSprite.rotation_degrees = 0
+			relative_rotation = 0
 
 
 ''' ---------- CUSTOM FUNCTIONS ---------- '''
 	
 func damaged(damage):
+	# Resets your charge ramp when hit to discourage tanking
+	if recharging_bool == true:
+		$ChargeRampTimer.start(time_to_max_ramp + hit_stun_time)
+		$ReloadingSprite.rotation_degrees = 0
+		relative_rotation = 0
+			
 	if current_energy == 0:
 		die()
 	else:
@@ -95,10 +143,16 @@ func shoot_bullet():
 		next_bullet.target_group = "enemy"
 		next_bullet.velocity = Vector2(0, -1)
 		next_bullet.position = self.position
+		next_bullet.get_node("BulletSprite").texture = load("res://Assets/Art/cshm_bullet.png")
+		next_bullet.get_node("BulletSprite").scale = Vector2(1, 1)
 		get_parent().add_child(next_bullet)
 	
 		# Energy Change. We do max here to put it in one line
-		current_energy = max(0, current_energy - 1)
+		current_energy = max(0, current_energy - bullet_cost)
 		
 	else:
 		pass
+
+func increase_energy(amount):
+	current_energy += amount
+	relative_rotation += 90

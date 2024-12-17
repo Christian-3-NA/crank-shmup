@@ -1,9 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://b5rnbgxb1vie7"]
+[gd_scene load_steps=7 format=3 uid="uid://b5rnbgxb1vie7"]
 
 [ext_resource type="Script" path="res://Scripts/combat_manager.gd" id="1_b46th"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gk58c"]
-bg_color = Color(0, 0, 0, 1)
+bg_color = Color(0.0627451, 0.0627451, 0.188235, 1)
 
 [sub_resource type="Curve2D" id="Curve2D_hl3ob"]
 _data = {
@@ -17,6 +17,18 @@ _data = {
 }
 point_count = 3
 
+[sub_resource type="Curve2D" id="Curve2D_w5rjj"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -32, 32, -64, 0, 64, 0, 175, 32, 64, 0, -64, 0, 175, 128, -64, 0, 32, 0, 175, 32, 0, -32, 0, 0, 223, 80, 0, 0, 0, 0, 223, 371)
+}
+point_count = 6
+
+[sub_resource type="Curve2D" id="Curve2D_uxker"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 302, 32, 64, 0, -64, 0, 95, 32, -64, 0, 64, 0, 95, 128, 64, 0, -32, 0, 95, 32, 0, -32, 0, 0, 47, 80, 0, 0, 0, 0, 47, 371)
+}
+point_count = 6
+
 [node name="CombatManager" type="Node2D"]
 script = ExtResource("1_b46th")
 
@@ -25,31 +37,44 @@ offset_right = 270.0
 offset_bottom = 360.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_gk58c")
 
-[node name="EnemySpawnN1" type="Marker2D" parent="."]
+[node name="Spawns" type="Node2D" parent="."]
+
+[node name="EnemySpawnN1" type="Marker2D" parent="Spawns"]
 position = Vector2(0, -32)
 
-[node name="EnemySpawnN2" type="Marker2D" parent="."]
+[node name="EnemySpawnN2" type="Marker2D" parent="Spawns"]
 position = Vector2(270, -32)
 
-[node name="EnemySpawnL1" type="Marker2D" parent="."]
+[node name="EnemySpawnL1" type="Marker2D" parent="Spawns"]
 position = Vector2(-32, 0)
 
-[node name="EnemySpawnL2" type="Marker2D" parent="."]
+[node name="EnemySpawnL2" type="Marker2D" parent="Spawns"]
 position = Vector2(-32, 128)
 
-[node name="EnemySpawnR1" type="Marker2D" parent="."]
+[node name="EnemySpawnR1" type="Marker2D" parent="Spawns"]
 position = Vector2(302, 0)
 
-[node name="EnemySpawnR2" type="Marker2D" parent="."]
+[node name="EnemySpawnR2" type="Marker2D" parent="Spawns"]
 position = Vector2(302, 128)
+
+[node name="PlayerSpawn" type="Marker2D" parent="Spawns"]
+position = Vector2(135, 392)
 
 [node name="WaveTimer" type="Timer" parent="."]
 one_shot = true
 
-[node name="PathCubic" type="Path2D" parent="."]
+[node name="Paths" type="Node2D" parent="."]
+
+[node name="PCubic" type="Path2D" parent="Paths"]
 curve = SubResource("Curve2D_hl3ob")
 
-[node name="PathCubicR" type="Path2D" parent="."]
+[node name="PCubicR" type="Path2D" parent="Paths"]
 curve = SubResource("Curve2D_e0mba")
+
+[node name="PLoop" type="Path2D" parent="Paths"]
+curve = SubResource("Curve2D_w5rjj")
+
+[node name="PLoopR" type="Path2D" parent="Paths"]
+curve = SubResource("Curve2D_uxker")
 
 [connection signal="timeout" from="WaveTimer" to="." method="_on_wave_timer_timeout"]

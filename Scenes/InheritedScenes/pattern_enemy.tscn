@@ -1,8 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://bbk1pbi8ub6jf"]
+[gd_scene load_steps=3 format=3 uid="uid://b3mcxbwxvbk3f"]
 
 [ext_resource type="PackedScene" uid="uid://dwycjkfeid0io" path="res://Scenes/enemy.tscn" id="1_6a1n5"]
 [ext_resource type="Script" path="res://Scripts/ExtendedScripts/pattern_enemy.gd" id="2_12l4b"]
 
 [node name="PatternEnemy" instance=ExtResource("1_6a1n5")]
-modulate = Color(1, 0, 1, 1)
+scale = Vector2(1.5, 1.5)
 script = ExtResource("2_12l4b")
+health = 8
+speed = 3
+metadata/_edit_group_ = true
+
+[node name="FireDelayTimer" type="Timer" parent="." index="2"]
+one_shot = true

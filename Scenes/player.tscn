@@ -1,21 +1,31 @@
-[gd_scene load_steps=4 format=3 uid="uid://jgdgb7esbgpd"]
+[gd_scene load_steps=5 format=3 uid="uid://jgdgb7esbgpd"]
 
-[ext_resource type="Texture2D" uid="uid://dtn3upxt2i7yi" path="res://Assets/Art/icon.svg" id="1_7rgnb"]
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_exb3b"]
+[ext_resource type="Texture2D" uid="uid://bwal3aflo0bc3" path="res://Assets/Art/cshm_player.png" id="2_v02r1"]
+[ext_resource type="Texture2D" uid="uid://blis31dqpyjt6" path="res://Assets/Art/cshm_reload.png" id="3_y1w38"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_28vcn"]
-radius = 16.0
+radius = 7.0
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 script = ExtResource("1_exb3b")
-metadata/_edit_group_ = true
 
 [node name="PlayerSprite" type="Sprite2D" parent="."]
-scale = Vector2(0.25, 0.25)
-texture = ExtResource("1_7rgnb")
+texture = ExtResource("2_v02r1")
+vframes = 3
+frame = 1
 
 [node name="PlayerShape" type="CollisionShape2D" parent="."]
+position = Vector2(0, 3)
 shape = SubResource("CircleShape2D_28vcn")
 
 [node name="FireDelayTimer" type="Timer" parent="."]
 one_shot = true
+
+[node name="ChargeRampTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="ReloadingSprite" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(0, 2)
+texture = ExtResource("3_y1w38")

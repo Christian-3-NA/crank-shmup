@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://bbk1pbi8ub6jf"]
+
+[ext_resource type="PackedScene" uid="uid://dwycjkfeid0io" path="res://Scenes/enemy.tscn" id="1_8n7jt"]
+[ext_resource type="Script" path="res://Scripts/ExtendedScripts/track_enemy.gd" id="2_elg87"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bujw7"]
+size = Vector2(25, 24)
+
+[node name="TrackEnemy" instance=ExtResource("1_8n7jt")]
+modulate = Color(1, 0, 1, 1)
+script = ExtResource("2_elg87")
+health = 2
+speed = 3
+metadata/_edit_group_ = true
+
+[node name="Hurtbox" type="Area2D" parent="." index="2"]
+
+[node name="HurtboxShape" type="CollisionShape2D" parent="Hurtbox" index="0"]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_bujw7")
+
+[connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]

@@ -1,0 +1,79 @@
+[gd_scene load_steps=4 format=3 uid="uid://ctw7pxnqktp0r"]
+
+[ext_resource type="Texture2D" uid="uid://dtn3upxt2i7yi" path="res://Assets/Art/icon.svg" id="1_0nnyg"]
+[ext_resource type="Script" path="res://Scripts/run_select_screen.gd" id="1_t2ibn"]
+[ext_resource type="Texture2D" uid="uid://dbdjhtf4m2q1p" path="res://Assets/Art/smiley_face.png" id="2_xa1ab"]
+
+[node name="RunSelectScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_t2ibn")
+
+[node name="RSSBack" type="Panel" parent="."]
+layout_mode = 0
+offset_right = 640.0
+offset_bottom = 360.0
+
+[node name="RSSHBox" type="HBoxContainer" parent="RSSBack"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="XPlayerOptions" type="VBoxContainer" parent="RSSBack/RSSHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="XCharacter" type="HBoxContainer" parent="RSSBack/RSSHBox/XPlayerOptions"]
+layout_mode = 2
+
+[node name="BPlayer1" type="TextureButton" parent="RSSBack/RSSHBox/XPlayerOptions/XCharacter"]
+custom_minimum_size = Vector2(0, 67)
+layout_mode = 2
+size_flags_horizontal = 3
+toggle_mode = true
+button_pressed = true
+texture_normal = ExtResource("1_0nnyg")
+texture_pressed = ExtResource("2_xa1ab")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="BPlayer2" type="TextureButton" parent="RSSBack/RSSHBox/XPlayerOptions/XCharacter"]
+custom_minimum_size = Vector2(0, 67)
+layout_mode = 2
+size_flags_horizontal = 3
+toggle_mode = true
+texture_normal = ExtResource("1_0nnyg")
+texture_pressed = ExtResource("2_xa1ab")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="BPlayer3" type="TextureButton" parent="RSSBack/RSSHBox/XPlayerOptions/XCharacter"]
+custom_minimum_size = Vector2(0, 67)
+layout_mode = 2
+size_flags_horizontal = 3
+toggle_mode = true
+texture_normal = ExtResource("1_0nnyg")
+texture_pressed = ExtResource("2_xa1ab")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="XRunModifiers" type="VBoxContainer" parent="RSSBack/RSSHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="XConfirmation" type="VBoxContainer" parent="RSSBack/RSSHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="StartRun" type="Button" parent="RSSBack/RSSHBox/XConfirmation"]
+layout_mode = 2
+text = "START"
+
+[connection signal="pressed" from="RSSBack/RSSHBox/XConfirmation/StartRun" to="." method="_on_start_run_pressed"]

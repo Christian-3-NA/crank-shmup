@@ -1,0 +1,157 @@
+[gd_scene load_steps=15 format=3 uid="uid://1scw38thf746"]
+
+[ext_resource type="Script" path="res://Scripts/game_manager.gd" id="1_ecya6"]
+[ext_resource type="Script" path="res://Scripts/energy_bar.gd" id="2_5mcx1"]
+[ext_resource type="PackedScene" uid="uid://b5rnbgxb1vie7" path="res://Scenes/combat_manager.tscn" id="2_a7254"]
+[ext_resource type="Script" path="res://Scripts/pause_menu.gd" id="4_nksfr"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_peufv"]
+
+[sub_resource type="Gradient" id="Gradient_30l8q"]
+colors = PackedColorArray(0, 0, 0, 1, 0.0627451, 0.0627451, 0.12549, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_534sh"]
+gradient = SubResource("Gradient_30l8q")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wl7r3"]
+texture = SubResource("GradientTexture1D_534sh")
+
+[sub_resource type="LabelSettings" id="LabelSettings_6halo"]
+font_size = 32
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dm72m"]
+content_margin_left = 20.0
+content_margin_right = 20.0
+bg_color = Color(0.917647, 0.768627, 0.243137, 1)
+border_color = Color(0.144063, 0.144063, 0.144063, 1)
+
+[sub_resource type="Gradient" id="Gradient_xofkq"]
+colors = PackedColorArray(0.0627451, 0.0627451, 0.12549, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_flgxv"]
+gradient = SubResource("Gradient_xofkq")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_71jxy"]
+texture = SubResource("GradientTexture1D_flgxv")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8ivom"]
+bg_color = Color(0.427451, 0.145098, 0.313726, 1)
+
+[node name="GameManager" type="Node2D"]
+script = ExtResource("1_ecya6")
+
+[node name="GMBack" type="Panel" parent="."]
+offset_right = 640.0
+offset_bottom = 360.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_peufv")
+
+[node name="GameBox" type="HBoxContainer" parent="GMBack"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 0
+
+[node name="LeftContainer" type="PanelContainer" parent="GMBack/GameBox"]
+z_index = 1
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxTexture_wl7r3")
+
+[node name="HudLeft" type="HBoxContainer" parent="GMBack/GameBox/LeftContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HLContents" type="VBoxContainer" parent="GMBack/GameBox/LeftContainer/HudLeft"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TimeLeft" type="Label" parent="GMBack/GameBox/LeftContainer/HudLeft/HLContents"]
+layout_mode = 2
+text = "15"
+label_settings = SubResource("LabelSettings_6halo")
+horizontal_alignment = 1
+
+[node name="ScoreLabel" type="Label" parent="GMBack/GameBox/LeftContainer/HudLeft/HLContents"]
+layout_mode = 2
+text = "Score: 00000000"
+horizontal_alignment = 1
+
+[node name="EnergyBar" type="ProgressBar" parent="GMBack/GameBox/LeftContainer/HudLeft"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 3
+theme_override_styles/fill = SubResource("StyleBoxFlat_dm72m")
+fill_mode = 3
+show_percentage = false
+script = ExtResource("2_5mcx1")
+
+[node name="CombatHolder" type="Control" parent="GMBack/GameBox"]
+custom_minimum_size = Vector2(270, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CombatManager" parent="GMBack/GameBox/CombatHolder" instance=ExtResource("2_a7254")]
+
+[node name="RightContainer" type="PanelContainer" parent="GMBack/GameBox"]
+z_index = 1
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxTexture_71jxy")
+
+[node name="HudRight" type="VBoxContainer" parent="GMBack/GameBox/RightContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SpawnPlayer" type="Button" parent="GMBack/GameBox/RightContainer/HudRight"]
+layout_mode = 2
+text = "Spawn
+Player"
+
+[node name="MouseHolder" type="Button" parent="GMBack/GameBox/RightContainer/HudRight"]
+layout_mode = 2
+text = "press me :)"
+
+[node name="SpawnWave" type="Button" parent="GMBack/GameBox/RightContainer/HudRight"]
+layout_mode = 2
+text = "Spawn
+Wave"
+
+[node name="PauseMenu" type="PanelContainer" parent="GMBack"]
+process_mode = 3
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_8ivom")
+script = ExtResource("4_nksfr")
+
+[node name="XPause" type="VBoxContainer" parent="GMBack/PauseMenu"]
+layout_mode = 2
+
+[node name="BResume" type="Button" parent="GMBack/PauseMenu/XPause"]
+layout_mode = 2
+text = "CONFIDENCE"
+
+[node name="BQuit" type="Button" parent="GMBack/PauseMenu/XPause"]
+layout_mode = 2
+text = "COWARDICE"
+
+[connection signal="pressed" from="GMBack/GameBox/RightContainer/HudRight/SpawnPlayer" to="." method="_on_spawn_player_pressed"]
+[connection signal="pressed" from="GMBack/GameBox/RightContainer/HudRight/SpawnPlayer" to="GMBack/GameBox/CombatHolder/CombatManager" method="_on_spawn_player_pressed"]
+[connection signal="pressed" from="GMBack/GameBox/RightContainer/HudRight/SpawnWave" to="GMBack/GameBox/CombatHolder/CombatManager" method="_on_spawn_wave_pressed"]
+[connection signal="pressed" from="GMBack/PauseMenu/XPause/BResume" to="GMBack/PauseMenu" method="_on_b_resume_pressed"]
+[connection signal="pressed" from="GMBack/PauseMenu/XPause/BQuit" to="GMBack/PauseMenu" method="_on_b_quit_pressed"]

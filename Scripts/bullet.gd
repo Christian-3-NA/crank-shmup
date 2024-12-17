@@ -15,8 +15,15 @@ func _ready() -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	position += velocity * speed * delta
+	
+	off_screen_clearing()
+
+
+func off_screen_clearing():
+	if position.y > 488 or position.y < -128:
+		queue_free()
 
 
 ''' ---------- SIGNAL FUNCTIONS ---------- '''

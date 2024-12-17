@@ -5,10 +5,12 @@ Just moves down.
 '''
 
 # Enemy Stats
-var health = 3
-var speed = 50
+@export var health = 3
+@export var speed = 50
+@export var score = 100
 var spawn_position = Vector2.ZERO
 var delay_time = 0
+var target = Global.current_player_GL
 
 
 ''' ---------- DEFAULT FUNCTIONS ---------- '''
@@ -19,18 +21,17 @@ func _ready() -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	# Pauses the enemy processing before anything else happens
-	# Would do this in a function but that makes a co-routine
-	if delay_time > 0:
-		await get_tree().create_timer(delay_time).timeout
-		delay_time = 0
+	await get_tree().create_timer(delay_time).timeout
 		
-	# Does this second (after the spawn dleay) because nothing else matters if he dies
+	# Does this second (after the spawn delay) because nothing else matters if he dies
 	if health <= 0:
 		die()
 		
 	position += velocity * speed * delta # Change Pos
+	
+	off_screen_clearing()
 
 
 ''' ---------- CUSTOM FUNCTIONS ---------- '''
@@ -40,9 +41,10 @@ func damaged(damage):
 
 
 func die():
+	Global.global_score += score
 	queue_free()
 
 
-func delay():
-	print("delay_timeweee")
-	print("AHHHHHHHHHHHHHHHHHHH")
+func off_screen_clearing():
+	if position.y > 488 or position.y < -128:
+		queue_free()

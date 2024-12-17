@@ -4,16 +4,15 @@ Aimer type enemy.
 Flies into a set position then begins firing bullets directly at the player.
 
 When instantiating, give:
-	shooting_position
+	relative_shoot_pos
 '''
 
 # Enemy Stats
 var bullet_speed = 150
-var bullet_damage = 10
+var bullet_damage = 5
 var fire_delay = 2
 var shooting_position = Vector2.ZERO
 var relative_shoot_pos = Vector2.ZERO
-var target = Global.current_player_GL
 
 # Scene Loading
 var bullet_scene = load("res://Scenes/bullet.tscn")
@@ -26,21 +25,16 @@ func _ready() -> void:
 	# Prevents firing as soon as they spawn in
 	$FireDelayTimer.start(fire_delay)
 	
-	# Needs to be low for lerp to look right
-	speed = 3
-	
 	# This code is run here because it can't be done in the Levels data
 	shooting_position = position + relative_shoot_pos
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	# Pauses the enemy processing before anything else happens
-	if delay_time > 0:
-		await get_tree().create_timer(delay_time).timeout
-		delay_time = 0
+	await get_tree().create_timer(delay_time).timeout
 	
-	# Does this first because nothing else matters if he dies
+	# Does this second (after the spawn delay) because nothing else matters if he dies
 	if health <= 0:
 		die()
 		
