@@ -2,9 +2,10 @@ extends CharacterBody2D
 
 # Player Stats
 var health = 5
-var speed = 150
+var speed = 175
 var bullet_speed = 400
 var fire_delay = 0.1
+var accel_percent = 0
 # Energy
 var max_energy = 30.0
 var current_energy = max_energy
@@ -38,12 +39,16 @@ func _physics_process(delta: float) -> void:
 	
 	# Reloading. Does this before anything else because it changes your controls
 	if Input.is_action_just_pressed("charge"):
-		if recharging_bool == false:
+		if recharging_bool == false and current_energy != max_energy:
+			velocity = Vector2.ZERO
 			$ChargeRampTimer.start(time_to_max_ramp)
 			recharging_bool = true
 			$PlayerSprite.frame = 1
+			$PlayerSprite.offset.x = 0
 			$ReloadingSprite.show()
 		else:
+			# This is necessary to continue movement after releasing reload
+			check_movement()
 			recharging_bool = false
 			$ReloadingSprite.hide()
 			$ReloadingSprite.rotation_degrees = 0
@@ -52,29 +57,66 @@ func _physics_process(delta: float) -> void:
 	# Can only shoot and move when not recharging
 	if !recharging_bool:
 		# Movement Input
-		var velocity = Vector2.ZERO
-		if Input.is_action_pressed("move_right"):
+		# This long chunk of repeated code is to allow for input overwriting.
+		# Movement check is a part of this functionality
+		if Input.is_action_just_pressed("move_right"):
+			velocity.x = 1
+		if Input.is_action_just_pressed("move_left"):
+			velocity.x = -1
+		if Input.is_action_just_pressed("move_down"):
+			velocity.y = 1
+		if Input.is_action_just_pressed("move_up"):
+			velocity.y = -1
+			
+		if Input.is_action_just_released("move_right") and velocity.x == 1:
+			velocity.x = 0
+			if Input.is_action_pressed("move_left"):
+				velocity.x = -1
+		if Input.is_action_just_released("move_left") and velocity.x == -1:
+			velocity.x = 0
+			if Input.is_action_pressed("move_right"):
+				velocity.x = 1
+		if Input.is_action_just_released("move_down") and velocity.y == 1:
+			velocity.y = 0
+			if Input.is_action_pressed("move_up"):
+				velocity.y = -1
+		if Input.is_action_just_released("move_up") and velocity.y == -1:
+			velocity.y = 0
+			if Input.is_action_pressed("move_down"):
+				velocity.y = 1
+			
+		'''if Input.is_action_pressed("move_right"):
 			velocity.x += 1
 		if Input.is_action_pressed("move_left"):
 			velocity.x -= 1
 		if Input.is_action_pressed("move_down"):
 			velocity.y += 1
 		if Input.is_action_pressed("move_up"):
-			velocity.y -= 1
+			velocity.y -= 1'''
 		
-		# Diagonal Normalization
-		if velocity.length() > 0:
-			velocity = velocity.normalized() * speed
+		# Diagonal Normalization (broken right now? dunno what its problem is)
+		#if velocity.length() > 0:
+		#	velocity = velocity.normalized() * speed
 			
-		position += velocity * delta # Change Pos
+		# Movement acceleration code, minimal impact intended for precision movement only
+		if velocity == Vector2.ZERO:
+			accel_percent -= .2
+			accel_percent = max(accel_percent, 0)
+		else:
+			accel_percent += .2
+			accel_percent = min(accel_percent, 1)
+		position += velocity * delta * speed * accel_percent # If you put normalization back on, remove * speed
 		
 		# Sprite changing
 		if velocity.x > 0:
 			$PlayerSprite.frame = 2
+			$PlayerSprite.offset.x = -2
 		elif velocity.x < 0:
 			$PlayerSprite.frame = 0
+			$PlayerSprite.offset.x = 2
 		else: 
 			$PlayerSprite.frame = 1
+			$PlayerSprite.offset.x = 0
 		
 		# Position clamping to screen
 		var clamp_offset = $PlayerSprite.get_rect().size * $PlayerSprite.scale / 2 # Defining this here because i only use it below
@@ -102,12 +144,14 @@ func _physics_process(delta: float) -> void:
 			increase_energy(new_recharge_amount)
 		if Input.is_action_just_pressed("move_up"):
 			increase_energy(new_recharge_amount)
+			
 		if current_energy >= max_energy:
 			current_energy = max_energy
 			recharging_bool = false
 			$ReloadingSprite.hide()
 			$ReloadingSprite.rotation_degrees = 0
 			relative_rotation = 0
+			check_movement()
 
 
 ''' ---------- CUSTOM FUNCTIONS ---------- '''
@@ -153,6 +197,18 @@ func shoot_bullet():
 	else:
 		pass
 
+
 func increase_energy(amount):
 	current_energy += amount
 	relative_rotation += 90
+
+
+func check_movement():
+	if Input.is_action_pressed("move_right"):
+		velocity.x = 1
+	if Input.is_action_pressed("move_left"):
+		velocity.x = -1
+	if Input.is_action_pressed("move_down"):
+		velocity.y = 1
+	if Input.is_action_pressed("move_up"):
+		velocity.y = -1

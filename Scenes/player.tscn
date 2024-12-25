@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://blis31dqpyjt6" path="res://Assets/Art/cshm_reload.png" id="3_y1w38"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_28vcn"]
-radius = 7.0
+radius = 5.0
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 script = ExtResource("1_exb3b")

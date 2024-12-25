@@ -67,10 +67,23 @@ func spawn_next_wave(next_wave):
 			0:	next_enemy.position = $Spawns/EnemySpawnN1.position.lerp($Spawns/EnemySpawnN2.position, enemy_data[1][1])
 			1:	next_enemy.position = $Spawns/EnemySpawnL1.position.lerp($Spawns/EnemySpawnL2.position, enemy_data[1][1])
 			2:	next_enemy.position = $Spawns/EnemySpawnR1.position.lerp($Spawns/EnemySpawnR2.position, enemy_data[1][1])
-		if enemy_data.size() > 2:
-			for enemy_variables in enemy_data.slice(2):
+		if enemy_data.size() > 3:
+			for enemy_variables in enemy_data.slice(3):
 				next_enemy.set(enemy_variables[0], enemy_variables[1])
-		add_child(next_enemy)
+				
+		# Spawn delay *used* to be stored as an enemy variable,
+		# but only way to pause enemy was to put await at the begenning of process.
+		# that broke it when trying to pause; each individual frame of processing was
+		# delayed by the delay time, ending up with like 100 instances of the same
+		# _process running at the same time.
+		spawn_enemy(enemy_data[2], next_enemy)
+		
+		
+# This function exists to let await create co-routines
+func spawn_enemy(delay, next_enemy):
+	if delay > 0:
+		await get_tree().create_timer(delay).timeout
+	add_child(next_enemy)
 
 
 ''' ---------- OLD FUNCTIONS ----------

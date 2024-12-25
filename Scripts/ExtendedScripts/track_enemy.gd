@@ -25,10 +25,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
-	# Pauses the enemy processing before anything else happens
-	await get_tree().create_timer(delay_time).timeout
-	
-	# Does this second (after the spawn delay) because nothing else matters if he dies
+	# Does this first because nothing else matters if he dies
 	if health <= 0:
 		die()
 		

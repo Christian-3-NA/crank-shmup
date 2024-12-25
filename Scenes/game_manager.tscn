@@ -1,41 +1,43 @@
-[gd_scene load_steps=15 format=3 uid="uid://1scw38thf746"]
+[gd_scene load_steps=29 format=3 uid="uid://1scw38thf746"]
 
 [ext_resource type="Script" path="res://Scripts/game_manager.gd" id="1_ecya6"]
 [ext_resource type="Script" path="res://Scripts/energy_bar.gd" id="2_5mcx1"]
 [ext_resource type="PackedScene" uid="uid://b5rnbgxb1vie7" path="res://Scenes/combat_manager.tscn" id="2_a7254"]
+[ext_resource type="Texture2D" uid="uid://bjp452ltt82fn" path="res://Assets/Art/cshm_energy_container.png" id="2_esh3q"]
+[ext_resource type="Texture2D" uid="uid://cvgxqwihyhnkm" path="res://Assets/Art/cshm_left_panel.png" id="2_npaqp"]
+[ext_resource type="Texture2D" uid="uid://dtlel1c0n1ok1" path="res://Assets/Art/cshm_energy_bar_empty.png" id="3_c1v5c"]
+[ext_resource type="Texture2D" uid="uid://b4smpbgwhv7jl" path="res://Assets/Art/cshm_score_bounty.png" id="3_qcd3n"]
 [ext_resource type="Script" path="res://Scripts/pause_menu.gd" id="4_nksfr"]
+[ext_resource type="Texture2D" uid="uid://ci068nb0t7hu3" path="res://Assets/Art/cshm_score_meter_empty.png" id="4_uujdh"]
+[ext_resource type="Texture2D" uid="uid://b5s2ma46jy2ww" path="res://Assets/Art/cshm_score_panel.png" id="4_vgpmi"]
+[ext_resource type="Texture2D" uid="uid://cydvyk32y6g2c" path="res://Assets/Art/cshm_energy_bar.png" id="4_wftol"]
+[ext_resource type="Texture2D" uid="uid://dhnwxouy007ed" path="res://Assets/Art/cshm_score_meter_full.png" id="5_kdakd"]
+[ext_resource type="Texture2D" uid="uid://c83itkbhfir6u" path="res://Assets/Art/cshm_score_stats_TEMP.png" id="5_sljn4"]
+[ext_resource type="Texture2D" uid="uid://b6fh5m0ts8e0h" path="res://Assets/Art/cshm_energy_bar_cap.png" id="6_2ownu"]
+[ext_resource type="Texture2D" uid="uid://b2qvk3dau2ipf" path="res://Assets/Art/cshm_bg_back.png" id="11_4hlcj"]
+[ext_resource type="Texture2D" uid="uid://bwokowcgkj5w7" path="res://Assets/Art/cshm_right_panel.png" id="12_ahoc0"]
+[ext_resource type="Texture2D" uid="uid://djwprbxw8wyka" path="res://Assets/Art/cshm_bg_galaxies.png" id="12_i2vq2"]
+[ext_resource type="Texture2D" uid="uid://bltg4cys62nri" path="res://Assets/Art/cshm_item_cases.png" id="13_gk8rp"]
+[ext_resource type="Texture2D" uid="uid://cg0470osp8jje" path="res://Assets/Art/cshm_bg_stars_far.png" id="13_ol7v4"]
+[ext_resource type="Texture2D" uid="uid://7gnq6aconmws" path="res://Assets/Art/cshm_text_panel.png" id="14_mwhpg"]
+[ext_resource type="Texture2D" uid="uid://crklis86ovy2p" path="res://Assets/Art/cshm_bg_stars_close.png" id="14_npr75"]
+[ext_resource type="Texture2D" uid="uid://distj6updwt8p" path="res://Assets/Art/cshm_bg_stars_really_close.png" id="15_2y5wr"]
+[ext_resource type="Texture2D" uid="uid://drdu8prqwpbvp" path="res://Assets/Art/cshm_timer_panel.png" id="15_6qmkg"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_peufv"]
 
-[sub_resource type="Gradient" id="Gradient_30l8q"]
-colors = PackedColorArray(0, 0, 0, 1, 0.0627451, 0.0627451, 0.12549, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_534sh"]
-gradient = SubResource("Gradient_30l8q")
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wl7r3"]
-texture = SubResource("GradientTexture1D_534sh")
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fd5tk"]
+bg_color = Color(0.0470588, 0.0470588, 0.0666667, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_6halo"]
 font_size = 32
+font_color = Color(0.941176, 0.309804, 0.470588, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dm72m"]
-content_margin_left = 20.0
-content_margin_right = 20.0
-bg_color = Color(0.917647, 0.768627, 0.243137, 1)
-border_color = Color(0.144063, 0.144063, 0.144063, 1)
-
-[sub_resource type="Gradient" id="Gradient_xofkq"]
-colors = PackedColorArray(0.0627451, 0.0627451, 0.12549, 1, 0, 0, 0, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_flgxv"]
-gradient = SubResource("Gradient_xofkq")
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_71jxy"]
-texture = SubResource("GradientTexture1D_flgxv")
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v87th"]
+bg_color = Color(0.0470588, 0.0470588, 0.0666667, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8ivom"]
-bg_color = Color(0.427451, 0.145098, 0.313726, 1)
+bg_color = Color(0.764706, 0.141176, 0.329412, 1)
 
 [node name="GameManager" type="Node2D"]
 script = ExtResource("1_ecya6")
@@ -59,40 +61,157 @@ theme_override_constants/separation = 0
 z_index = 1
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_styles/panel = SubResource("StyleBoxTexture_wl7r3")
+theme_override_styles/panel = SubResource("StyleBoxFlat_fd5tk")
 
 [node name="HudLeft" type="HBoxContainer" parent="GMBack/GameBox/LeftContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_constants/separation = 0
 
-[node name="HLContents" type="VBoxContainer" parent="GMBack/GameBox/LeftContainer/HudLeft"]
+[node name="LeftPanelBG" type="TextureRect" parent="GMBack/GameBox/LeftContainer/HudLeft"]
+layout_mode = 2
+texture = ExtResource("2_npaqp")
+
+[node name="ScorePanel" type="TextureRect" parent="GMBack/GameBox/LeftContainer/HudLeft/LeftPanelBG"]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 165.0
+offset_right = 127.0
+offset_bottom = 207.0
+texture = ExtResource("4_vgpmi")
+stretch_mode = 2
+
+[node name="ScoreLabel" type="Label" parent="GMBack/GameBox/LeftContainer/HudLeft/LeftPanelBG/ScorePanel"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 3.0
+offset_right = 111.0
+offset_bottom = 26.0
+theme_override_colors/font_color = Color(0.941176, 0.309804, 0.470588, 1)
+text = "000,000,000"
+horizontal_alignment = 1
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="GMBack/GameBox/LeftContainer/HudLeft/LeftPanelBG/ScorePanel"]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 31.0
+offset_right = 114.0
+offset_bottom = 71.0
+max_value = 10.0
+texture_under = ExtResource("4_uujdh")
+texture_progress = ExtResource("5_kdakd")
+
+[node name="TEMPStats" type="TextureRect" parent="GMBack/GameBox/LeftContainer/HudLeft/LeftPanelBG"]
+layout_mode = 0
+offset_left = 17.0
+offset_top = 213.0
+offset_right = 117.0
+offset_bottom = 343.0
+texture = ExtResource("5_sljn4")
+stretch_mode = 2
+
+[node name="BountyPoster" type="TextureRect" parent="GMBack/GameBox/LeftContainer/HudLeft/LeftPanelBG"]
+layout_mode = 0
+offset_left = 13.0
+offset_top = 28.0
+offset_right = 120.0
+offset_bottom = 174.0
+texture = ExtResource("3_qcd3n")
+stretch_mode = 2
+
+[node name="OLDHLContents" type="VBoxContainer" parent="GMBack/GameBox/LeftContainer/HudLeft"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="TimeLeft" type="Label" parent="GMBack/GameBox/LeftContainer/HudLeft/HLContents"]
+[node name="OLDTimeLeft" type="Label" parent="GMBack/GameBox/LeftContainer/HudLeft/OLDHLContents"]
 layout_mode = 2
 text = "15"
 label_settings = SubResource("LabelSettings_6halo")
 horizontal_alignment = 1
 
-[node name="ScoreLabel" type="Label" parent="GMBack/GameBox/LeftContainer/HudLeft/HLContents"]
+[node name="OLDScoreLabel" type="Label" parent="GMBack/GameBox/LeftContainer/HudLeft/OLDHLContents"]
 layout_mode = 2
 text = "Score: 00000000"
 horizontal_alignment = 1
 
-[node name="EnergyBar" type="ProgressBar" parent="GMBack/GameBox/LeftContainer/HudLeft"]
+[node name="EnergyContainer" type="TextureRect" parent="GMBack/GameBox/LeftContainer/HudLeft"]
 layout_mode = 2
+texture = ExtResource("2_esh3q")
+stretch_mode = 2
+
+[node name="EnergyBar" type="TextureProgressBar" parent="GMBack/GameBox/LeftContainer/HudLeft/EnergyContainer"]
+layout_mode = 2
+offset_left = 7.0
+offset_top = 16.0
+offset_right = 43.0
+offset_bottom = 344.0
 size_flags_horizontal = 8
-size_flags_vertical = 3
-theme_override_styles/fill = SubResource("StyleBoxFlat_dm72m")
+size_flags_vertical = 4
 fill_mode = 3
-show_percentage = false
+texture_under = ExtResource("3_c1v5c")
+texture_progress = ExtResource("4_wftol")
 script = ExtResource("2_5mcx1")
+
+[node name="EnergyCap" type="TextureRect" parent="GMBack/GameBox/LeftContainer/HudLeft/EnergyContainer/EnergyBar"]
+visible = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 5.0
+texture = ExtResource("6_2ownu")
+stretch_mode = 2
 
 [node name="CombatHolder" type="Control" parent="GMBack/GameBox"]
 custom_minimum_size = Vector2(270, 0)
 layout_mode = 2
 size_flags_horizontal = 3
+
+[node name="ParallaxGalaxies" type="Node2D" parent="GMBack/GameBox/CombatHolder"]
+
+[node name="Back" type="Parallax2D" parent="GMBack/GameBox/CombatHolder/ParallaxGalaxies"]
+repeat_size = Vector2(0, 720)
+autoscroll = Vector2(0, 4)
+repeat_times = 2
+
+[node name="BackS" type="Sprite2D" parent="GMBack/GameBox/CombatHolder/ParallaxGalaxies/Back"]
+position = Vector2(135, 360)
+texture = ExtResource("11_4hlcj")
+
+[node name="Galaxies" type="Parallax2D" parent="GMBack/GameBox/CombatHolder/ParallaxGalaxies"]
+repeat_size = Vector2(0, 720)
+autoscroll = Vector2(0, 10)
+repeat_times = 2
+
+[node name="GalaxiesS" type="Sprite2D" parent="GMBack/GameBox/CombatHolder/ParallaxGalaxies/Galaxies"]
+position = Vector2(135, 360)
+texture = ExtResource("12_i2vq2")
+
+[node name="StarsFar" type="Parallax2D" parent="GMBack/GameBox/CombatHolder/ParallaxGalaxies"]
+repeat_size = Vector2(0, 720)
+autoscroll = Vector2(0, 20)
+repeat_times = 2
+
+[node name="StarsFarS" type="Sprite2D" parent="GMBack/GameBox/CombatHolder/ParallaxGalaxies/StarsFar"]
+position = Vector2(135, 360)
+texture = ExtResource("13_ol7v4")
+
+[node name="StarsClose" type="Parallax2D" parent="GMBack/GameBox/CombatHolder/ParallaxGalaxies"]
+repeat_size = Vector2(0, 720)
+autoscroll = Vector2(0, 30)
+repeat_times = 2
+
+[node name="StarsCloseS" type="Sprite2D" parent="GMBack/GameBox/CombatHolder/ParallaxGalaxies/StarsClose"]
+position = Vector2(135, 360)
+texture = ExtResource("14_npr75")
+
+[node name="StarsReallyClose" type="Parallax2D" parent="GMBack/GameBox/CombatHolder/ParallaxGalaxies"]
+repeat_size = Vector2(0, 720)
+autoscroll = Vector2(0, 720)
+repeat_times = 2
+
+[node name="StarsReallyCloseS" type="Sprite2D" parent="GMBack/GameBox/CombatHolder/ParallaxGalaxies/StarsReallyClose"]
+position = Vector2(135, 360)
+texture = ExtResource("15_2y5wr")
 
 [node name="CombatManager" parent="GMBack/GameBox/CombatHolder" instance=ExtResource("2_a7254")]
 
@@ -100,7 +219,45 @@ size_flags_horizontal = 3
 z_index = 1
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_styles/panel = SubResource("StyleBoxTexture_71jxy")
+theme_override_styles/panel = SubResource("StyleBoxFlat_v87th")
+
+[node name="RightPanelBG" type="TextureRect" parent="GMBack/GameBox/RightContainer"]
+layout_mode = 2
+texture = ExtResource("12_ahoc0")
+stretch_mode = 2
+
+[node name="ItemCases" type="TextureRect" parent="GMBack/GameBox/RightContainer/RightPanelBG"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 110.0
+offset_right = 175.0
+offset_bottom = 175.0
+texture = ExtResource("13_gk8rp")
+
+[node name="TextPanel" type="TextureRect" parent="GMBack/GameBox/RightContainer/RightPanelBG"]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 184.0
+offset_right = 176.0
+offset_bottom = 360.0
+texture = ExtResource("14_mwhpg")
+
+[node name="TimerPanel" type="TextureRect" parent="GMBack/GameBox/RightContainer/RightPanelBG"]
+layout_mode = 0
+offset_left = 19.0
+offset_right = 166.0
+offset_bottom = 78.0
+texture = ExtResource("15_6qmkg")
+
+[node name="TimeLeft" type="Label" parent="GMBack/GameBox/RightContainer/RightPanelBG/TimerPanel"]
+layout_mode = 0
+offset_left = 28.0
+offset_top = 29.0
+offset_right = 65.0
+offset_bottom = 74.0
+text = "15"
+label_settings = SubResource("LabelSettings_6halo")
+horizontal_alignment = 1
 
 [node name="HudRight" type="VBoxContainer" parent="GMBack/GameBox/RightContainer"]
 layout_mode = 2

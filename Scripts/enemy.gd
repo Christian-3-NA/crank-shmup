@@ -9,7 +9,6 @@ Just moves down.
 @export var speed = 50
 @export var score = 100
 var spawn_position = Vector2.ZERO
-var delay_time = 0
 var target = Global.current_player_GL
 
 
@@ -22,10 +21,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
-	# Pauses the enemy processing before anything else happens
-	await get_tree().create_timer(delay_time).timeout
-		
-	# Does this second (after the spawn delay) because nothing else matters if he dies
+	# Does this first because nothing else matters if he dies
 	if health <= 0:
 		die()
 		
@@ -42,6 +38,9 @@ func damaged(damage):
 
 func die():
 	Global.global_score += score
+	if Global.spawn_powerup_bool == true:
+		get_parent().add_child(load("res://Scenes/bullet.tscn").instantiate())
+		Global.power_up_spawned.emit()
 	queue_free()
 
 
