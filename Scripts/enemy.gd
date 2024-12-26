@@ -9,7 +9,10 @@ Just moves down.
 @export var speed = 50
 @export var score = 100
 var spawn_position = Vector2.ZERO
+
+#Scene Loading
 var target = Global.current_player_GL
+var powerup_scene = load("res://Scenes/powerup.tscn")
 
 
 ''' ---------- DEFAULT FUNCTIONS ---------- '''
@@ -37,10 +40,23 @@ func damaged(damage):
 
 
 func die():
-	Global.global_score += score
+	# Score is modified by stats
+	var modified_score = score + (score * target.boost_score * target.boost_scr_increase)
+	Global.global_score += modified_score
+	
+	# Spawn powerup
 	if Global.spawn_powerup_bool == true:
-		get_parent().add_child(load("res://Scenes/bullet.tscn").instantiate())
+		# Powerup instantiation
+		var next_powerup = powerup_scene.instantiate()
+		next_powerup.powerup_type = target.next_powerup_type
+		next_powerup.position = self.position
+		get_parent().add_child(next_powerup)
+		# Have to choose next powerup at spawn or else multiple powerups spawned
+		# at once will have the same type
+		target.last_powerup_type = target.next_powerup_type
+		target.choose_next_powerup()
 		Global.power_up_spawned.emit()
+	
 	queue_free()
 
 

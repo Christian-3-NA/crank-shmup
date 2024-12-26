@@ -7,7 +7,7 @@ var powerup_meter_progress = 0
 # Scene Loading
 var current_player = Global.current_player_GL
 var game_timer = Global.get_node("GameTimer")
-@onready var powerup_meter = $GMBack/GameBox/LeftContainer/HudLeft/LeftPanelBG/ScorePanel/TextureProgressBar
+@onready var powerup_meter = $GMBack/GameBox/LeftContainer/HudLeft/LeftPanelBG/ScorePanel/ScoreBar
 
 
 ''' ---------- DEFAULT FUNCTIONS ---------- '''
@@ -31,6 +31,14 @@ func _process(delta: float) -> void:
 	#powerup_meter.value = powerup_meter_progress / 100
 	if powerup_meter.value == powerup_meter.max_value:
 		Global.spawn_powerup_bool = true
+		
+	# Stats display
+	$GMBack/GameBox/LeftContainer/HudLeft/LeftPanelBG/Stats/DamageBar.value = current_player.boost_damage
+	$GMBack/GameBox/LeftContainer/HudLeft/LeftPanelBG/Stats/DefenseBar.value = current_player.boost_defense
+	$GMBack/GameBox/LeftContainer/HudLeft/LeftPanelBG/Stats/ReloadBar.value = current_player.boost_reload
+	$GMBack/GameBox/LeftContainer/HudLeft/LeftPanelBG/Stats/ScoreBar.value = current_player.boost_score
+	$GMBack/GameBox/LeftContainer/HudLeft/LeftPanelBG/Stats/FragmentsBar.value = current_player.boost_fragments
+	$GMBack/GameBox/LeftContainer/HudLeft/LeftPanelBG/Stats/CostBar.value = current_player.boost_cost
 	
 	# Game Timer display. Changes detail as it decreases
 	var time_display_ref = $GMBack/GameBox/RightContainer/RightPanelBG/TimerPanel/TimeLeft

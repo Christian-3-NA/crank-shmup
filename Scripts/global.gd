@@ -4,7 +4,7 @@ extends Node
 var player_scene = load("res://Scenes/player.tscn")
 var current_player_GL = player_scene.instantiate() # GL = global, to reduce confusion across scenes
 var global_score = 0
-var spawn_powerup_bool = true
+var spawn_powerup_bool = false
 
 # Reference List for all enemy types
 @export var enemy_scenes: Array[PackedScene] = []

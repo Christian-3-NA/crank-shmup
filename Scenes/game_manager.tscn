@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://1scw38thf746"]
+[gd_scene load_steps=33 format=3 uid="uid://1scw38thf746"]
 
 [ext_resource type="Script" path="res://Scripts/game_manager.gd" id="1_ecya6"]
 [ext_resource type="Script" path="res://Scripts/energy_bar.gd" id="2_5mcx1"]
@@ -14,6 +14,9 @@
 [ext_resource type="Texture2D" uid="uid://dhnwxouy007ed" path="res://Assets/Art/cshm_score_meter_full.png" id="5_kdakd"]
 [ext_resource type="Texture2D" uid="uid://c83itkbhfir6u" path="res://Assets/Art/cshm_score_stats_TEMP.png" id="5_sljn4"]
 [ext_resource type="Texture2D" uid="uid://b6fh5m0ts8e0h" path="res://Assets/Art/cshm_energy_bar_cap.png" id="6_2ownu"]
+[ext_resource type="Texture2D" uid="uid://cyemwulokr5a6" path="res://Assets/Art/cshm_stats_meter_empty.png" id="7_3oasu"]
+[ext_resource type="Texture2D" uid="uid://bwcyxrjhce4jn" path="res://Assets/Art/cshm_stats_meter_full.png" id="8_4tbww"]
+[ext_resource type="Texture2D" uid="uid://b0ksn5lxp2i7u" path="res://Assets/Art/cshm_stats_icons.png" id="9_idlxh"]
 [ext_resource type="Texture2D" uid="uid://b2qvk3dau2ipf" path="res://Assets/Art/cshm_bg_back.png" id="11_4hlcj"]
 [ext_resource type="Texture2D" uid="uid://bwokowcgkj5w7" path="res://Assets/Art/cshm_right_panel.png" id="12_ahoc0"]
 [ext_resource type="Texture2D" uid="uid://djwprbxw8wyka" path="res://Assets/Art/cshm_bg_galaxies.png" id="12_i2vq2"]
@@ -23,18 +26,19 @@
 [ext_resource type="Texture2D" uid="uid://crklis86ovy2p" path="res://Assets/Art/cshm_bg_stars_close.png" id="14_npr75"]
 [ext_resource type="Texture2D" uid="uid://distj6updwt8p" path="res://Assets/Art/cshm_bg_stars_really_close.png" id="15_2y5wr"]
 [ext_resource type="Texture2D" uid="uid://drdu8prqwpbvp" path="res://Assets/Art/cshm_timer_panel.png" id="15_6qmkg"]
+[ext_resource type="Script" path="res://Scenes/debug_menu.gd" id="27_lp8g4"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_peufv"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fd5tk"]
 bg_color = Color(0.0470588, 0.0470588, 0.0666667, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v87th"]
+bg_color = Color(0.0470588, 0.0470588, 0.0666667, 1)
+
 [sub_resource type="LabelSettings" id="LabelSettings_6halo"]
 font_size = 32
 font_color = Color(0.941176, 0.309804, 0.470588, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v87th"]
-bg_color = Color(0.0470588, 0.0470588, 0.0666667, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8ivom"]
 bg_color = Color(0.764706, 0.141176, 0.329412, 1)
@@ -91,23 +95,98 @@ theme_override_colors/font_color = Color(0.941176, 0.309804, 0.470588, 1)
 text = "000,000,000"
 horizontal_alignment = 1
 
-[node name="TextureProgressBar" type="TextureProgressBar" parent="GMBack/GameBox/LeftContainer/HudLeft/LeftPanelBG/ScorePanel"]
+[node name="ScoreBar" type="TextureProgressBar" parent="GMBack/GameBox/LeftContainer/HudLeft/LeftPanelBG/ScorePanel"]
 layout_mode = 0
 offset_left = 15.0
 offset_top = 31.0
 offset_right = 114.0
-offset_bottom = 71.0
-max_value = 10.0
+offset_bottom = 37.0
+max_value = 20.0
 texture_under = ExtResource("4_uujdh")
 texture_progress = ExtResource("5_kdakd")
 
-[node name="TEMPStats" type="TextureRect" parent="GMBack/GameBox/LeftContainer/HudLeft/LeftPanelBG"]
+[node name="Stats" type="TextureRect" parent="GMBack/GameBox/LeftContainer/HudLeft/LeftPanelBG"]
 layout_mode = 0
 offset_left = 17.0
 offset_top = 213.0
 offset_right = 117.0
 offset_bottom = 343.0
 texture = ExtResource("5_sljn4")
+stretch_mode = 2
+
+[node name="DamageBar" type="TextureProgressBar" parent="GMBack/GameBox/LeftContainer/HudLeft/LeftPanelBG/Stats"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 4.0
+offset_right = 15.0
+offset_bottom = 104.0
+max_value = 20.0
+fill_mode = 3
+texture_under = ExtResource("7_3oasu")
+texture_progress = ExtResource("8_4tbww")
+
+[node name="DefenseBar" type="TextureProgressBar" parent="GMBack/GameBox/LeftContainer/HudLeft/LeftPanelBG/Stats"]
+layout_mode = 0
+offset_left = 22.0
+offset_top = 4.0
+offset_right = 31.0
+offset_bottom = 104.0
+max_value = 20.0
+fill_mode = 3
+texture_under = ExtResource("7_3oasu")
+texture_progress = ExtResource("8_4tbww")
+
+[node name="ReloadBar" type="TextureProgressBar" parent="GMBack/GameBox/LeftContainer/HudLeft/LeftPanelBG/Stats"]
+layout_mode = 0
+offset_left = 38.0
+offset_top = 4.0
+offset_right = 47.0
+offset_bottom = 104.0
+max_value = 20.0
+fill_mode = 3
+texture_under = ExtResource("7_3oasu")
+texture_progress = ExtResource("8_4tbww")
+
+[node name="ScoreBar" type="TextureProgressBar" parent="GMBack/GameBox/LeftContainer/HudLeft/LeftPanelBG/Stats"]
+layout_mode = 0
+offset_left = 54.0
+offset_top = 4.0
+offset_right = 63.0
+offset_bottom = 104.0
+max_value = 20.0
+fill_mode = 3
+texture_under = ExtResource("7_3oasu")
+texture_progress = ExtResource("8_4tbww")
+
+[node name="FragmentsBar" type="TextureProgressBar" parent="GMBack/GameBox/LeftContainer/HudLeft/LeftPanelBG/Stats"]
+layout_mode = 0
+offset_left = 70.0
+offset_top = 4.0
+offset_right = 79.0
+offset_bottom = 104.0
+max_value = 20.0
+fill_mode = 3
+texture_under = ExtResource("7_3oasu")
+texture_progress = ExtResource("8_4tbww")
+
+[node name="CostBar" type="TextureProgressBar" parent="GMBack/GameBox/LeftContainer/HudLeft/LeftPanelBG/Stats"]
+layout_mode = 0
+offset_left = 86.0
+offset_top = 4.0
+offset_right = 95.0
+offset_bottom = 104.0
+max_value = 20.0
+fill_mode = 3
+texture_under = ExtResource("7_3oasu")
+texture_progress = ExtResource("8_4tbww")
+
+[node name="StatIcons" type="TextureRect" parent="GMBack/GameBox/LeftContainer/HudLeft/LeftPanelBG/Stats"]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 103.0
+offset_right = 99.0
+offset_bottom = 143.0
+texture = ExtResource("9_idlxh")
 stretch_mode = 2
 
 [node name="BountyPoster" type="TextureRect" parent="GMBack/GameBox/LeftContainer/HudLeft/LeftPanelBG"]
@@ -118,22 +197,6 @@ offset_right = 120.0
 offset_bottom = 174.0
 texture = ExtResource("3_qcd3n")
 stretch_mode = 2
-
-[node name="OLDHLContents" type="VBoxContainer" parent="GMBack/GameBox/LeftContainer/HudLeft"]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="OLDTimeLeft" type="Label" parent="GMBack/GameBox/LeftContainer/HudLeft/OLDHLContents"]
-layout_mode = 2
-text = "15"
-label_settings = SubResource("LabelSettings_6halo")
-horizontal_alignment = 1
-
-[node name="OLDScoreLabel" type="Label" parent="GMBack/GameBox/LeftContainer/HudLeft/OLDHLContents"]
-layout_mode = 2
-text = "Score: 00000000"
-horizontal_alignment = 1
 
 [node name="EnergyContainer" type="TextureRect" parent="GMBack/GameBox/LeftContainer/HudLeft"]
 layout_mode = 2
@@ -307,8 +370,70 @@ text = "CONFIDENCE"
 layout_mode = 2
 text = "COWARDICE"
 
+[node name="DebugMenu" type="PanelContainer" parent="GMBack"]
+process_mode = 3
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -62.0
+offset_top = -20.0
+offset_right = 62.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("27_lp8g4")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GMBack/DebugMenu"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GMBack/DebugMenu/HBoxContainer"]
+layout_mode = 2
+
+[node name="BFullMeter" type="Button" parent="GMBack/DebugMenu/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Fill Drop Meter"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="GMBack/DebugMenu/HBoxContainer"]
+layout_mode = 2
+
+[node name="IncreaseDamage" type="Button" parent="GMBack/DebugMenu/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "damage"
+
+[node name="IncreaseDefense" type="Button" parent="GMBack/DebugMenu/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "defense"
+
+[node name="IncreaseReload" type="Button" parent="GMBack/DebugMenu/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "reload"
+
+[node name="IncreaseScore" type="Button" parent="GMBack/DebugMenu/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "score"
+
+[node name="IncreaseFragments" type="Button" parent="GMBack/DebugMenu/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "fragments"
+
+[node name="IncreaseEnergy" type="Button" parent="GMBack/DebugMenu/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "energy"
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="GMBack/DebugMenu/HBoxContainer"]
+layout_mode = 2
+
 [connection signal="pressed" from="GMBack/GameBox/RightContainer/HudRight/SpawnPlayer" to="." method="_on_spawn_player_pressed"]
 [connection signal="pressed" from="GMBack/GameBox/RightContainer/HudRight/SpawnPlayer" to="GMBack/GameBox/CombatHolder/CombatManager" method="_on_spawn_player_pressed"]
 [connection signal="pressed" from="GMBack/GameBox/RightContainer/HudRight/SpawnWave" to="GMBack/GameBox/CombatHolder/CombatManager" method="_on_spawn_wave_pressed"]
 [connection signal="pressed" from="GMBack/PauseMenu/XPause/BResume" to="GMBack/PauseMenu" method="_on_b_resume_pressed"]
 [connection signal="pressed" from="GMBack/PauseMenu/XPause/BQuit" to="GMBack/PauseMenu" method="_on_b_quit_pressed"]
+[connection signal="pressed" from="GMBack/DebugMenu/HBoxContainer/VBoxContainer2/IncreaseDamage" to="GMBack/DebugMenu" method="_on_increase_damage_pressed"]
+[connection signal="pressed" from="GMBack/DebugMenu/HBoxContainer/VBoxContainer2/IncreaseDefense" to="GMBack/DebugMenu" method="_on_increase_defense_pressed"]
+[connection signal="pressed" from="GMBack/DebugMenu/HBoxContainer/VBoxContainer2/IncreaseReload" to="GMBack/DebugMenu" method="_on_increase_reload_pressed"]
+[connection signal="pressed" from="GMBack/DebugMenu/HBoxContainer/VBoxContainer2/IncreaseScore" to="GMBack/DebugMenu" method="_on_increase_score_pressed"]
+[connection signal="pressed" from="GMBack/DebugMenu/HBoxContainer/VBoxContainer2/IncreaseFragments" to="GMBack/DebugMenu" method="_on_increase_fragments_pressed"]
+[connection signal="pressed" from="GMBack/DebugMenu/HBoxContainer/VBoxContainer2/IncreaseEnergy" to="GMBack/DebugMenu" method="_on_increase_energy_pressed"]
