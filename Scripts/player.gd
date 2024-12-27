@@ -3,7 +3,7 @@ extends CharacterBody2D
 # Player Stats
 var health = 5
 var speed = 175
-var bullet_speed = 400
+var bullet_speed = 500
 var bullet_damage = 1
 var fire_delay = 0.1
 var accel_percent = 0
@@ -41,6 +41,8 @@ var recharging_bool = false
 
 # Scene Loading
 var bullet_scene = load("res://Scenes/bullet.tscn")
+var bullet_sprite = load("res://Assets/Art/cshm_bullet.png")
+var small_bullet_sprite = load("res://Assets/Art/cshm_small_bullet.png")
 
 
 ''' ---------- DEFAULT FUNCTIONS ---------- '''
@@ -208,19 +210,21 @@ func shoot_bullet(fragments):
 		next_bullet.speed = bullet_speed
 		if fragments == 0:
 			next_bullet.damage = bullet_damage + (boost_damage * boost_dmg_increase)
+			next_bullet.get_node("BulletSprite").texture = bullet_sprite
 			next_bullet.position = self.position
 			next_bullet.velocity = Vector2(0, -1)
 		else:
 			next_bullet.damage = bullet_damage * .25
-			#next_bullet.scale = Vector2(0.5, 0.5)
-			var fragment_direction = 1
-			#var fragment_position = floor(fragments/2)
+			next_bullet.get_node("BulletSprite").texture = small_bullet_sprite
+			
+			var fragment_direction = -1
 			if fragments % 2 == 1:
-				fragment_direction = -1
-			next_bullet.velocity = Vector2(0, -1)
-			next_bullet.position = self.position + Vector2(10 * floor(fragments/2) * fragment_direction, 0)
+				fragment_direction = 1
+			var fragment_angle = 10 * ceil(float(fragments)/2) * fragment_direction
+			next_bullet.velocity = Vector2(cos(deg_to_rad(fragment_angle-90)), sin(deg_to_rad(fragment_angle-90)))
+			next_bullet.position = self.position #+ Vector2(5 * ceil(float(fragments)/2) * fragment_direction, 0)
+		
 		next_bullet.target_group = "enemy"
-		next_bullet.get_node("BulletSprite").texture = load("res://Assets/Art/cshm_bullet.png")
 		next_bullet.get_node("BulletSprite").scale = Vector2(1, 1)
 		get_parent().add_child(next_bullet)
 		
@@ -255,17 +259,23 @@ func check_movement():
 func power_up_grabbed(powerup_type):
 	match powerup_type:
 		"damage":
-			boost_damage += 1
+			if boost_damage < 20:
+				boost_damage += 1
 		"defense":
-			boost_defense += 1
+			if boost_defense < 20:
+				boost_defense += 1
 		"reload":
-			boost_reload += 1
+			if boost_reload < 20:
+				boost_reload += 1
 		"score":
-			boost_score += 1
+			if boost_score < 20:
+				boost_score += 1
 		"fragments":
-			boost_fragments += 1
+			if boost_fragments < 20:
+				boost_fragments += 1
 		"cost":
-			boost_cost += 1
+			if boost_cost < 20:
+				boost_cost += 1
 			
 
 func choose_next_powerup():

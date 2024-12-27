@@ -26,7 +26,7 @@
 [ext_resource type="Texture2D" uid="uid://crklis86ovy2p" path="res://Assets/Art/cshm_bg_stars_close.png" id="14_npr75"]
 [ext_resource type="Texture2D" uid="uid://distj6updwt8p" path="res://Assets/Art/cshm_bg_stars_really_close.png" id="15_2y5wr"]
 [ext_resource type="Texture2D" uid="uid://drdu8prqwpbvp" path="res://Assets/Art/cshm_timer_panel.png" id="15_6qmkg"]
-[ext_resource type="Script" path="res://Scenes/debug_menu.gd" id="27_lp8g4"]
+[ext_resource type="Script" path="res://Scripts/debug_menu.gd" id="27_lp8g4"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_peufv"]
 
@@ -342,6 +342,7 @@ Wave"
 
 [node name="PauseMenu" type="PanelContainer" parent="GMBack"]
 process_mode = 3
+z_index = 2
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -372,6 +373,7 @@ text = "COWARDICE"
 
 [node name="DebugMenu" type="PanelContainer" parent="GMBack"]
 process_mode = 3
+z_index = 2
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
