@@ -50,11 +50,13 @@ func _on_spawn_wave_pressed() -> void:
 	
 	
 func _on_wave_timer_timeout() -> void:
-	if next_wave >= Global.Levels_Dict["Level_1"].size():
+	spawn_next_wave(rng.randi_range(0, Global.Levels_Dict["Level_1"].size() - 1))
+	
+	'''if next_wave >= Global.Levels_Dict["Level_1"].size():
 		print("end!")
 		return
 	spawn_next_wave(next_wave)
-	next_wave += 1
+	next_wave += 1'''
 
 
 ''' ---------- CUSTOM FUNCTIONS ---------- '''

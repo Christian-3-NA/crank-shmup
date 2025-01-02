@@ -1,11 +1,66 @@
-[gd_scene load_steps=5 format=3 uid="uid://jgdgb7esbgpd"]
+[gd_scene load_steps=11 format=3 uid="uid://jgdgb7esbgpd"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_exb3b"]
 [ext_resource type="Texture2D" uid="uid://bwal3aflo0bc3" path="res://Assets/Art/cshm_player.png" id="2_v02r1"]
 [ext_resource type="Texture2D" uid="uid://blis31dqpyjt6" path="res://Assets/Art/cshm_reload.png" id="3_y1w38"]
+[ext_resource type="Texture2D" uid="uid://ba43qau5kxf3y" path="res://Assets/Art/cshm_smoke.png" id="4_4my7w"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_28vcn"]
 radius = 5.0
+
+[sub_resource type="Animation" id="Animation_u0pbr"]
+resource_name = "invincibility_flicker"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerSprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0.5), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_ebqpq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerSprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_nnu4p"]
+_data = {
+"RESET": SubResource("Animation_ebqpq"),
+"invincibility_flicker": SubResource("Animation_u0pbr")
+}
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_6ttra"]
+particles_animation = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 3
+particles_anim_loop = false
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ess5j"]
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_max = 171.21
+gravity = Vector3(0, 500, 0)
+damping_min = 19.844
+damping_max = 19.844
+anim_speed_min = 1.0
+anim_speed_max = 1.0
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 collision_layer = 3
@@ -32,3 +87,20 @@ one_shot = true
 visible = false
 position = Vector2(0, 2)
 texture = ExtResource("3_y1w38")
+
+[node name="InvincibilityFlicker" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_nnu4p")
+}
+speed_scale = 4.0
+
+[node name="SmokeParticles" type="GPUParticles2D" parent="."]
+z_index = 3
+material = SubResource("CanvasItemMaterial_6ttra")
+emitting = false
+amount = 5
+process_material = SubResource("ParticleProcessMaterial_ess5j")
+texture = ExtResource("4_4my7w")
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0

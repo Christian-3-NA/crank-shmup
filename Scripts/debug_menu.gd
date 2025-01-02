@@ -41,3 +41,5 @@ func _on_increase_fragments_pressed() -> void:
 	current_player.boost_fragments += 1
 func _on_increase_energy_pressed() -> void:
 	current_player.boost_cost += 1
+func _on_invincible_pressed() -> void:
+	current_player.invincible = !current_player.invincible

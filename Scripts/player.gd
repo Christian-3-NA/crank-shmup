@@ -7,6 +7,8 @@ var bullet_speed = 500
 var bullet_damage = 1
 var fire_delay = 0.1
 var accel_percent = 0
+var invincibility_time = 0.5
+
 # Energy
 var max_energy = 30.0
 var current_energy = max_energy
@@ -14,6 +16,7 @@ var bullet_cost = 1
 var recharge_amount = 1
 var time_to_max_ramp = 0.5
 var hit_stun_time = 0.5 # Delay before you can reload when hit while charging
+
 # Powerup Stat Boosts. Only counts how many of each you have, these max out at 20
 var boost_damage = 0 # Bullet damage
 var boost_defense = 0 # Take less damage
@@ -38,6 +41,8 @@ var relative_rotation = 0
 
 # State Bools
 var recharging_bool = false
+var invincible = false
+var fragment_direction = 1 # Flips this every shot so odd num fragments arent unbalanced
 
 # Scene Loading
 var bullet_scene = load("res://Scenes/bullet.tscn")
@@ -105,15 +110,6 @@ func _physics_process(delta: float) -> void:
 			velocity.y = 0
 			if Input.is_action_pressed("move_down"):
 				velocity.y = 1
-			
-		'''if Input.is_action_pressed("move_right"):
-			velocity.x += 1
-		if Input.is_action_pressed("move_left"):
-			velocity.x -= 1
-		if Input.is_action_pressed("move_down"):
-			velocity.y += 1
-		if Input.is_action_pressed("move_up"):
-			velocity.y -= 1'''
 		
 		# Diagonal Normalization (broken right now? dunno what its problem is)
 		#if velocity.length() > 0:
@@ -126,6 +122,7 @@ func _physics_process(delta: float) -> void:
 		else:
 			accel_percent += .2
 			accel_percent = min(accel_percent, 1)
+			
 		position += velocity * delta * speed * accel_percent # If you put normalization back on, remove * speed
 		
 		# Sprite changing
@@ -145,6 +142,7 @@ func _physics_process(delta: float) -> void:
 		
 		# Shooting Code
 		if Input.is_action_pressed("shoot") and $FireDelayTimer.is_stopped():
+			fragment_direction = fragment_direction * -1
 			shoot_bullet(boost_fragments)
 			
 	
@@ -179,18 +177,33 @@ func _physics_process(delta: float) -> void:
 ''' ---------- CUSTOM FUNCTIONS ---------- '''
 	
 func damaged(damage):
-	damage -= damage * boost_defense * boost_dfn_increase
+	if invincible == false:
+		damage -= damage * boost_defense * boost_dfn_increase
+		
+		# Resets your charge ramp when hit to discourage tanking
+		if recharging_bool == true:
+			$ChargeRampTimer.start(time_to_max_ramp + hit_stun_time)
+			$ReloadingSprite.rotation_degrees = 0
+			relative_rotation = 0
+				
+		if current_energy == 0:
+			die()
+		else:
+			current_energy = max(0, current_energy - damage)
+		
+		$SmokeParticles.restart()
+		invincibility_timer()
 	
-	# Resets your charge ramp when hit to discourage tanking
-	if recharging_bool == true:
-		$ChargeRampTimer.start(time_to_max_ramp + hit_stun_time)
-		$ReloadingSprite.rotation_degrees = 0
-		relative_rotation = 0
-			
-	if current_energy == 0:
-		die()
 	else:
-		current_energy = max(0, current_energy - damage)
+		pass
+
+
+func invincibility_timer():
+	invincible = true
+	$InvincibilityFlicker.play("invincibility_flicker")
+	await get_tree().create_timer(invincibility_time).timeout
+	$InvincibilityFlicker.stop()
+	invincible = false
 
 
 func die():
@@ -217,15 +230,15 @@ func shoot_bullet(fragments):
 			next_bullet.damage = bullet_damage * .25
 			next_bullet.get_node("BulletSprite").texture = small_bullet_sprite
 			
-			var fragment_direction = -1
+			var temp_fragment_direction = fragment_direction
 			if fragments % 2 == 1:
-				fragment_direction = 1
-			var fragment_angle = 10 * ceil(float(fragments)/2) * fragment_direction
+				temp_fragment_direction = fragment_direction * -1
+			var fragment_angle = 10 * ceil(float(fragments)/2) * temp_fragment_direction
 			next_bullet.velocity = Vector2(cos(deg_to_rad(fragment_angle-90)), sin(deg_to_rad(fragment_angle-90)))
-			next_bullet.position = self.position #+ Vector2(5 * ceil(float(fragments)/2) * fragment_direction, 0)
+			next_bullet.position = self.position #+ Vector2(5 * ceil(float(fragments)/2) * temp_fragment_direction, 0)
 		
 		next_bullet.target_group = "enemy"
-		next_bullet.get_node("BulletSprite").scale = Vector2(1, 1)
+		next_bullet.get_node("BulletSprite").scale = Vector2(1, 1) # Can remove this after making an actual default bullet sprite
 		get_parent().add_child(next_bullet)
 		
 		# Energy Change. We do max here to put it in one line

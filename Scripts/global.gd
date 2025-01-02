@@ -54,7 +54,7 @@ var Level_1_Waves = [
 var Levels_Dict = {
 	# Level 1 spawns wave 1, then waits 3 seconds before wave 2, 
 	# 	waits 3 more seconds then wave 3, then 10 seconds before the level ends
-	"Level_1": [ [Level_1_Waves[0],2], [Level_1_Waves[1],4], [Level_1_Waves[2],3], [Level_1_Waves[3  ],3] ],
+	"Level_1": [ [Level_1_Waves[0],2], [Level_1_Waves[1],4], [Level_1_Waves[2],3], [Level_1_Waves[3],3] ],
 	"Level_2": []
 }
 

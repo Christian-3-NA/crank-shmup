@@ -65,3 +65,7 @@ func _process(delta: float) -> void:
 func reset_meter():
 	powerup_meter.value = 0
 	Global.spawn_powerup_bool = false
+
+
+func _on_full_meter_pressed() -> void:
+	powerup_meter.value = powerup_meter.max_value

@@ -1,0 +1,186 @@
+{
+  "main": {
+    "id": "a3269ce77dcb582e",
+    "type": "split",
+    "children": [
+      {
+        "id": "8957e1dd073af9b5",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "df99135af9ea0ba4",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Fly Into The Sun.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Fly Into The Sun"
+            }
+          },
+          {
+            "id": "195b80e43c5c85ec",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Enemy Design Philosophy.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Enemy Design Philosophy"
+            }
+          }
+        ],
+        "currentTab": 1
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "7009e31acc28be12",
+    "type": "split",
+    "children": [
+      {
+        "id": "96b43d7bf7c96fa4",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "0a618a3388a285cf",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "5cdb64c40216ba10",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "fca2a1be04e8d8e5",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "47710c65e77f8ff1",
+    "type": "split",
+    "children": [
+      {
+        "id": "266887a7f3c9c1f4",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "f9e3d9520bd943c4",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "Enemy Design Philosophy.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks for Enemy Design Philosophy"
+            }
+          },
+          {
+            "id": "fe827b22686e5591",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "Enemy Design Philosophy.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from Enemy Design Philosophy"
+            }
+          },
+          {
+            "id": "e55e0a98fbbb0cbc",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "552e876191416dbc",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "Enemy Design Philosophy.md"
+              },
+              "icon": "lucide-list",
+              "title": "Outline of Enemy Design Philosophy"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false
+    }
+  },
+  "active": "195b80e43c5c85ec",
+  "lastOpenFiles": [
+    "Fly Into The Sun.md",
+    "Enemy Design Philosophy.md",
+    "Welcome.md"
+  ]
+}

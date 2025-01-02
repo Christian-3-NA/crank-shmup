@@ -394,9 +394,13 @@ layout_mode = 2
 [node name="VBoxContainer" type="VBoxContainer" parent="GMBack/DebugMenu/HBoxContainer"]
 layout_mode = 2
 
-[node name="BFullMeter" type="Button" parent="GMBack/DebugMenu/HBoxContainer/VBoxContainer"]
+[node name="FullMeter" type="Button" parent="GMBack/DebugMenu/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "Fill Drop Meter"
+
+[node name="Invincible" type="Button" parent="GMBack/DebugMenu/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Toggle Invincibility"
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="GMBack/DebugMenu/HBoxContainer"]
 layout_mode = 2
@@ -433,6 +437,8 @@ layout_mode = 2
 [connection signal="pressed" from="GMBack/GameBox/RightContainer/HudRight/SpawnWave" to="GMBack/GameBox/CombatHolder/CombatManager" method="_on_spawn_wave_pressed"]
 [connection signal="pressed" from="GMBack/PauseMenu/XPause/BResume" to="GMBack/PauseMenu" method="_on_b_resume_pressed"]
 [connection signal="pressed" from="GMBack/PauseMenu/XPause/BQuit" to="GMBack/PauseMenu" method="_on_b_quit_pressed"]
+[connection signal="pressed" from="GMBack/DebugMenu/HBoxContainer/VBoxContainer/FullMeter" to="." method="_on_full_meter_pressed"]
+[connection signal="pressed" from="GMBack/DebugMenu/HBoxContainer/VBoxContainer/Invincible" to="GMBack/DebugMenu" method="_on_invincible_pressed"]
 [connection signal="pressed" from="GMBack/DebugMenu/HBoxContainer/VBoxContainer2/IncreaseDamage" to="GMBack/DebugMenu" method="_on_increase_damage_pressed"]
 [connection signal="pressed" from="GMBack/DebugMenu/HBoxContainer/VBoxContainer2/IncreaseDefense" to="GMBack/DebugMenu" method="_on_increase_defense_pressed"]
 [connection signal="pressed" from="GMBack/DebugMenu/HBoxContainer/VBoxContainer2/IncreaseReload" to="GMBack/DebugMenu" method="_on_increase_reload_pressed"]
